@@ -7,6 +7,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private float fireForce = 1000f;
     [SerializeField] private float fireTorque = 100f;
     [SerializeField] private float minTorque = 50f;
+    [SerializeField] private float maxAngularVelocity = 500f;
 
     [Header("Shot Flash Particles")]
     [SerializeField] private ParticleSystem shotFlashParticles;
@@ -29,6 +30,8 @@ public class GunController : MonoBehaviour
         {
             ApplyRecoil();
         }
+
+        rb.angularVelocity = Mathf.Clamp(rb.angularVelocity, -maxAngularVelocity, maxAngularVelocity);
     }
 
     private void FireGun()
@@ -42,7 +45,7 @@ public class GunController : MonoBehaviour
     {
         m_applyRecoil = false;
 
-        var forward = transform.right;
+        var forward = -transform.right;
         var recoilForce = -forward * fireForce;
 
         var direction = Mathf.Sign(forward.x);
@@ -56,6 +59,7 @@ public class GunController : MonoBehaviour
          */ 
 
         rb.AddForce(recoilForce);
+        rb.angularVelocity = 0;
         rb.AddTorque(recoilTorque);
     }
 }
