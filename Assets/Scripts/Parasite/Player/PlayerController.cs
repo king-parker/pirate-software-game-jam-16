@@ -10,8 +10,14 @@ public class PlayerController : MonoBehaviour
 
     private float m_horizontal;
     private float m_vertical;
+    private float m_parasiteSpeed;
     private KeyCode m_infectKey = KeyCode.E;
     private KeyCode m_hostActionKey = KeyCode.Space;
+
+    private void Start()
+    {
+        m_parasiteSpeed = speed;
+    }
 
     private void Update()
     {
@@ -27,6 +33,16 @@ public class PlayerController : MonoBehaviour
 
         m_horizontal = Input.GetAxis("Horizontal");
         m_vertical = Input.GetAxis("Vertical");
+    }
+
+    public void SetSpeedToHost(float hostSpeed)
+    {
+        speed = hostSpeed;
+    }
+
+    public void SetSpeedToParasite()
+    {
+        speed = m_parasiteSpeed;
     }
 
     private void FixedUpdate()
