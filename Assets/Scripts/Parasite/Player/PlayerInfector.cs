@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInfector : MonoBehaviour
@@ -56,22 +54,7 @@ public class PlayerInfector : MonoBehaviour
 
     private Collider2D GetClosestInfectible()
     {
-        Collider2D[] hits = Physics2D.OverlapBoxAll((Vector2)transform.position + boxOffset, boxSize, 0f, infectableLayer);
-
-        Collider2D closestHit = null;
-        var closestDistance = float.MaxValue;
-
-        foreach (var hit in hits)
-        {
-            var distance = Vector2.Distance(transform.position, hit.transform.position);
-            if (distance < closestDistance)
-            {
-                closestHit = hit;
-                closestDistance = distance;
-            }
-        }
-
-        return closestHit;
+        return InteractUtility.GetClosestInteractable((Vector2)transform.position, boxOffset, boxSize, infectableLayer);
     }
 
     private void OnDrawGizmosSelected()
