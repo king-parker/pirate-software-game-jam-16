@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 1362970294}
   - component: {fileID: 1362970293}
   m_Layer: 0
-  m_Name: Exit Manager
+  m_Name: Restart Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -671,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f3f15a838440d43a25f1ad8fdba11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectScene: PrototypeSelect
+  currentScene: GunPrototype
 --- !u!4 &1362970294
 Transform:
   m_ObjectHideFlags: 0
