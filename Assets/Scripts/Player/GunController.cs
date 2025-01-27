@@ -37,31 +37,8 @@ public class GunController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(m_shootKey))
-        {
-            FireGun();
-        }
-
-        if (Input.GetKeyDown(m_bulletTimeKey) && m_remainingBulletTime > 0)
-        {
-            StartBulletTime();
-        }
-        if (Input.GetKeyUp(m_bulletTimeKey) || m_remainingBulletTime < 0.001)
-        {
-            StopBulletTime();
-        }
-
-        if (!m_isBulletTimeActive && m_remainingBulletTime < bulletTimeDuration)
-        {
-            m_remainingBulletTime += bulletTimeRechargeRate * Time.unscaledDeltaTime;
-            m_remainingBulletTime = Mathf.Min(m_remainingBulletTime, bulletTimeDuration);
-            bulletTimeSlider.value = GetBulletTimePercentage();
-        }
-        if (m_isBulletTimeActive)
-        {
-            m_remainingBulletTime -= Time.unscaledDeltaTime;
-            bulletTimeSlider.value = GetBulletTimePercentage();
-        }
+        CheckInputs();
+        UpdateBulletTimeCharge();
     }
 
     private void FixedUpdate()
@@ -78,6 +55,49 @@ public class GunController : MonoBehaviour
     public float GetBulletTimePercentage()
     {
         return m_remainingBulletTime / bulletTimeDuration;
+    }
+
+    private void CheckInputs()
+    {
+        if (Input.GetKeyDown(m_shootKey))
+        {
+            FireGun();
+        }
+
+        if (Input.GetKeyDown(m_bulletTimeKey) && m_remainingBulletTime > 0)
+        {
+            StartBulletTime();
+        }
+        if (Input.GetKeyUp(m_bulletTimeKey) || m_remainingBulletTime < 0.001)
+        {
+            StopBulletTime();
+        }
+    }
+
+    private void UpdateBulletTimeCharge()
+    {
+        if (!m_isBulletTimeActive)
+        {
+            if (m_remainingBulletTime < bulletTimeDuration)
+            {
+                m_remainingBulletTime += bulletTimeRechargeRate * Time.unscaledDeltaTime;
+                m_remainingBulletTime = Mathf.Min(m_remainingBulletTime, bulletTimeDuration);
+                bulletTimeSlider.value = GetBulletTimePercentage();
+            }
+            else
+            {
+                bulletTimeSlider.gameObject.SetActive(false);
+            }
+        }
+
+        if (m_isBulletTimeActive)
+        {
+            // Unhide 
+            bulletTimeSlider.gameObject.SetActive(true);
+
+            m_remainingBulletTime -= Time.unscaledDeltaTime;
+            bulletTimeSlider.value = GetBulletTimePercentage();
+        }
     }
 
     private void FireGun()
