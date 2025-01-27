@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunController : MonoBehaviour
 {
@@ -13,15 +14,31 @@ public class GunController : MonoBehaviour
     [SerializeField] private ParticleSystem shotFlashParticles;
     [SerializeField] private Transform flashPoint;
 
+    [Header("Bulle Time")]
+    [SerializeField] private Slider bulletTimeSlider;
+    [SerializeField, Range(0f, 1f)] private float bulletTimeScale = 0.5f;
+    [SerializeField] private float bulletTimeDuration = 5f;
+    [SerializeField] private float bulletTimeRechargeRate = 1f;
+
     private KeyCode m_shootKey = KeyCode.Space;
+    private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
     private bool m_applyRecoil = false;
+    private float m_regularFixedDeltaTime;
+    private float m_regularTimeScale = 1f;
+    private bool m_isBulletTimeActive = false;
+    private float m_remainingBulletTime;
+
+    private void Start()
+    {
+        m_regularFixedDeltaTime = Time.fixedDeltaTime;
+        m_isBulletTimeActive = false;
+        m_remainingBulletTime = bulletTimeDuration;
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(m_shootKey))
-        {
-            FireGun();
-        }
+        CheckInputs();
+        UpdateBulletTimeCharge();
     }
 
     private void FixedUpdate()
@@ -32,6 +49,55 @@ public class GunController : MonoBehaviour
         }
 
         rb.angularVelocity = Mathf.Clamp(rb.angularVelocity, -maxAngularVelocity, maxAngularVelocity);
+    }
+
+    // For UI or Progress Bars
+    public float GetBulletTimePercentage()
+    {
+        return m_remainingBulletTime / bulletTimeDuration;
+    }
+
+    private void CheckInputs()
+    {
+        if (Input.GetKeyDown(m_shootKey))
+        {
+            FireGun();
+        }
+
+        if (Input.GetKeyDown(m_bulletTimeKey) && m_remainingBulletTime > 0)
+        {
+            StartBulletTime();
+        }
+        if (Input.GetKeyUp(m_bulletTimeKey) || m_remainingBulletTime < 0.001)
+        {
+            StopBulletTime();
+        }
+    }
+
+    private void UpdateBulletTimeCharge()
+    {
+        if (!m_isBulletTimeActive)
+        {
+            if (m_remainingBulletTime < bulletTimeDuration)
+            {
+                m_remainingBulletTime += bulletTimeRechargeRate * Time.unscaledDeltaTime;
+                m_remainingBulletTime = Mathf.Min(m_remainingBulletTime, bulletTimeDuration);
+                bulletTimeSlider.value = GetBulletTimePercentage();
+            }
+            else
+            {
+                bulletTimeSlider.gameObject.SetActive(false);
+            }
+        }
+
+        if (m_isBulletTimeActive)
+        {
+            // Unhide 
+            bulletTimeSlider.gameObject.SetActive(true);
+
+            m_remainingBulletTime -= Time.unscaledDeltaTime;
+            bulletTimeSlider.value = GetBulletTimePercentage();
+        }
     }
 
     private void FireGun()
@@ -51,15 +117,28 @@ public class GunController : MonoBehaviour
         var direction = Mathf.Sign(forward.x);
         var sine = forward.y;
         var recoilTorque = direction * Mathf.Max(minTorque, Mathf.Abs(sine) * fireTorque);
-        /*
-         * NOTES: If the gun is perfectly level, then no rotation is applied. Most of the time this
-         * should not be an issue except at the start. The following are potential fixes.
-         * 1. Ensure the torque is never zero
-         * 2. Spawn the gun with a slight rotation at the start
-         */ 
+
+        // Scale forces up durring bullet time to maintain consistent physics
+        float bulletTimeFactor = m_isBulletTimeActive ? 1f / bulletTimeScale : 1f;
+        recoilForce *= bulletTimeFactor;
+        recoilTorque *= bulletTimeFactor;
 
         rb.AddForce(recoilForce);
         rb.angularVelocity = 0;
         rb.AddTorque(recoilTorque);
+    }
+
+    private void StartBulletTime()
+    {
+        m_isBulletTimeActive = true;
+        Time.timeScale = bulletTimeScale;
+        Time.fixedDeltaTime = m_regularFixedDeltaTime * bulletTimeScale;
+    }
+
+    private void StopBulletTime()
+    {
+        m_isBulletTimeActive = false;
+        Time.timeScale = m_regularTimeScale;
+        Time.fixedDeltaTime = m_regularFixedDeltaTime;
     }
 }
