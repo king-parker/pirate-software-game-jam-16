@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 300080837}
   - component: {fileID: 300080836}
   - component: {fileID: 300080838}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -684,7 +684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 838538239}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 895219935}
   - component: {fileID: 895219937}
   - component: {fileID: 895219936}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,9 +848,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1084387212}
-  - component: {fileID: 1084387213}
   - component: {fileID: 1084387214}
-  m_Layer: 0
+  - component: {fileID: 1084387213}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -872,6 +872,7 @@ Transform:
   m_Children:
   - {fileID: 838538239}
   - {fileID: 1396045090}
+  - {fileID: 1628169158}
   - {fileID: 1209361825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -900,7 +901,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &1084387214
 MonoBehaviour:
@@ -925,6 +926,8 @@ MonoBehaviour:
   bulletTimeScale: 0.5
   bulletTimeDuration: 5
   bulletTimeRechargeRate: 1
+  bullet: {fileID: 5639460107491087771, guid: cc2040417bec9fb4796ad5a83b7d9373, type: 3}
+  bulletSpawn: {fileID: 1628169158}
 --- !u!1 &1209361824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1054,7 @@ GameObject:
   - component: {fileID: 1219040297}
   - component: {fileID: 1219040299}
   - component: {fileID: 1219040298}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1158,7 +1161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -1263,7 +1266,7 @@ GameObject:
   - component: {fileID: 1449400256}
   - component: {fileID: 1449400257}
   - component: {fileID: 1449400258}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1325,7 +1328,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -1438,6 +1441,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8913119791601893449, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 12.729022
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913119791601893449, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: CollisionModule.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913119791601893449, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1533,6 +1548,104 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 2.5}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1607244867
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1628169158}
+    m_Modifications:
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329989874907780006, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_Name
+      value: Shot Flash Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329989874907780006, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+--- !u!4 &1607244868 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1548734929185640693, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
+  m_PrefabInstance: {fileID: 1607244867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1628169157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628169158}
+  m_Layer: 0
+  m_Name: Bullet Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1628169158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628169157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: -1.5, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1607244868}
+  m_Father: {fileID: 1084387212}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &1798168550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1619,7 +1732,7 @@ GameObject:
   - component: {fileID: 1936353477}
   - component: {fileID: 1936353479}
   - component: {fileID: 1936353478}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1749,7 +1862,7 @@ GameObject:
   - component: {fileID: 2006162680}
   - component: {fileID: 2006162682}
   - component: {fileID: 2006162681}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1859,7 +1972,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -1882,7 +1995,7 @@ GameObject:
   - component: {fileID: 2091981553}
   - component: {fileID: 2091981555}
   - component: {fileID: 2091981554}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

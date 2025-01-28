@@ -8,14 +8,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - Infectable
-  - RatClimable
-  - ScientistInteractable
-  - TechnicianInteractable
-  - WarehouseGrabable
+  - World
+  - Bullet
+  - Target
+  - Goal
+  - 
   - 
   - 
   - 
