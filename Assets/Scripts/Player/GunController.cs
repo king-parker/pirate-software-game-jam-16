@@ -20,6 +20,10 @@ public class GunController : MonoBehaviour
     [SerializeField] private float bulletTimeDuration = 5f;
     [SerializeField] private float bulletTimeRechargeRate = 1f;
 
+    [Header("Bullet")]
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform bulletSpawn;
+
     private KeyCode m_shootKey = KeyCode.Space;
     private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
     private bool m_applyRecoil = false;
@@ -102,7 +106,8 @@ public class GunController : MonoBehaviour
 
     private void FireGun()
     {
-        var particles = Instantiate(shotFlashParticles, flashPoint.position, flashPoint.rotation);
+        FireBullet();
+        CreateFlash();
 
         m_applyRecoil = true;
     }
@@ -140,5 +145,15 @@ public class GunController : MonoBehaviour
         m_isBulletTimeActive = false;
         Time.timeScale = m_regularTimeScale;
         Time.fixedDeltaTime = m_regularFixedDeltaTime;
+    }
+
+    private void FireBullet()
+    {
+        Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+    }
+
+    private void CreateFlash()
+    {
+        Instantiate(shotFlashParticles, flashPoint.position, flashPoint.rotation);
     }
 }
