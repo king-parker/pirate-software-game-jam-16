@@ -6,19 +6,59 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private string musicName = "event:/Soundtrack";
     [SerializeField] private bool isStage = false;
 
+    private static MusicManager m_instance;
     private FMOD.Studio.EventInstance m_musicInstance;
 
     private const string BULLET_TIME_PARAMETER = "Bullet Time Mix";
     private const string STAGE_CLEAR_PARAMETER = "Stage Clear Mix";
     private const string STAGE_START_PARAMETER = "Stage Start";
 
-    private void Start()
+    private void Awake()
+    {
+        if (m_instance == null)
+        {
+            // If first instance, start music
+            m_instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeMusic();
+        }
+        else
+        {
+            // Prevent duplicate instance
+            Destroy(gameObject);
+        }
+    }
+
+    private void InitializeMusic()
     {
         m_musicInstance = RuntimeManager.CreateInstance(musicName);
 
         if (isStage) { StageStart(); }
 
         m_musicInstance.start();
+    }
+
+    private void OnDestroy()
+    {
+        if (m_musicInstance.isValid())
+        {
+            m_musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            m_musicInstance.release();
+        }
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void EnsureMusicManagerExists()
+    {
+        if (m_instance == null)
+        {
+            var prefab = Resources.Load<GameObject>("Prefabs/Music Manager");
+            Debug.Log("Trying to create music manager");
+            if (prefab != null)
+            {
+                Instantiate(prefab);
+            }
+        }
     }
 
     [ContextMenu("Start Bullet Time Mix")]
