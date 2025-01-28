@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{d051302c-bbf8-4fe7-8f46-33010feb0ba6}">
+		<property name="name">
+			<value>Bullet Time Mix</value>
+		</property>
+		<relationship name="folder">
+			<destination>{7de759aa-933e-4036-9c2a-9471e43b04df}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{13d45c1c-17e2-4a19-8419-1de151a80ba3}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{13d45c1c-17e2-4a19-8419-1de151a80ba3}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>10</value>
+		</property>
+	</object>
+</objects>
