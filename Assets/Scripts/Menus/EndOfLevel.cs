@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class EndOfLevel : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
-    [SerializeField] private string currentScene;
     [SerializeField] private Button exitButton;
 
     private MusicManager m_musicManager;
@@ -21,7 +20,9 @@ public class EndOfLevel : MonoBehaviour
     public void RestartLevel()
     {
         m_musicManager.StopStageClearMix();
-        SceneManager.LoadScene(currentScene);
+
+        var currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 
     // TODO: This should probably not exist in a web game
