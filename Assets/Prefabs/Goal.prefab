@@ -429,6 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6760753168171659299}
+  - component: {fileID: 7677126235395699449}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -453,6 +454,19 @@ Transform:
   - {fileID: 6858600229370816784}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7677126235395699449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2681227159653610963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d239d7bcfad4c43b5169d75c6ef591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endOfLevelScreen: {fileID: 0}
 --- !u!1 &3658422707189270903
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6858600229370816784}
   - component: {fileID: 6455687193710468470}
+  - component: {fileID: 8043001871616833913}
   m_Layer: 0
   m_Name: Goal Area
   m_TagString: Untagged
@@ -653,6 +668,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 10}
   m_EdgeRadius: 0
+--- !u!114 &8043001871616833913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5164716895590979929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d3f9e770691d34eaaac22ff3570be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goal: {fileID: 7677126235395699449}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &5186108150113008593
 GameObject:
   m_ObjectHideFlags: 0
