@@ -31,6 +31,7 @@ public class GunController : MonoBehaviour
     private float m_regularTimeScale = 1f;
     private bool m_isBulletTimeActive = false;
     private float m_remainingBulletTime;
+    private bool m_isInputEnabled = true;
 
     private void Start()
     {
@@ -55,6 +56,11 @@ public class GunController : MonoBehaviour
         rb.angularVelocity = Mathf.Clamp(rb.angularVelocity, -maxAngularVelocity, maxAngularVelocity);
     }
 
+    public void DisableInputs()
+    {
+        m_isInputEnabled = false;
+    }
+
     // For UI or Progress Bars
     public float GetBulletTimePercentage()
     {
@@ -63,6 +69,8 @@ public class GunController : MonoBehaviour
 
     private void CheckInputs()
     {
+        if (!m_isInputEnabled) { return; }
+
         if (Input.GetKeyDown(m_shootKey))
         {
             FireGun();

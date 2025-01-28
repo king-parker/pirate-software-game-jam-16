@@ -14,14 +14,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IsInCollisionLayers(collision.gameObject.layer))
+        if (CollisionUtility.IsInCollisionLayers(collision.gameObject.layer, collisionLayers))
         {
             Destroy(this.gameObject);
         }
-    }
-
-    private bool IsInCollisionLayers(int layer)
-    {
-        return ((1 << layer) & collisionLayers) != 0;
     }
 }
