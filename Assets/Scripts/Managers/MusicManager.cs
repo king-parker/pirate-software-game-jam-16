@@ -6,6 +6,8 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private string musicName = "event:/Soundtrack";
     [SerializeField] private bool isStage = false;
 
+    public static string TAG = "MusicManager";
+
     private static MusicManager m_instance;
     private FMOD.Studio.EventInstance m_musicInstance;
 
