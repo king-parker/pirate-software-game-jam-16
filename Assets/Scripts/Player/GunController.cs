@@ -26,6 +26,7 @@ public class GunController : MonoBehaviour
 
     private KeyCode m_shootKey = KeyCode.Space;
     private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
+    private MusicManager m_musicManager;
     private bool m_applyRecoil = false;
     private float m_regularFixedDeltaTime;
     private float m_regularTimeScale = 1f;
@@ -38,6 +39,13 @@ public class GunController : MonoBehaviour
         m_regularFixedDeltaTime = Time.fixedDeltaTime;
         m_isBulletTimeActive = false;
         m_remainingBulletTime = bulletTimeDuration;
+
+        m_musicManager = GameObject.FindWithTag(MusicManager.TAG).GetComponent<MusicManager>();
+
+        // If this object is being created, we are starting a level and should not have menu music playing
+        m_musicManager.StageStart();
+        m_musicManager.StopBulletTimeMix();
+        m_musicManager.StopStageClearMix();
     }
 
     private void Update()
@@ -69,7 +77,11 @@ public class GunController : MonoBehaviour
 
     private void CheckInputs()
     {
-        if (!m_isInputEnabled) { return; }
+        if (!m_isInputEnabled)
+        {
+            StopBulletTime();
+            return;
+        }
 
         if (Input.GetKeyDown(m_shootKey))
         {
@@ -146,6 +158,8 @@ public class GunController : MonoBehaviour
         m_isBulletTimeActive = true;
         Time.timeScale = bulletTimeScale;
         Time.fixedDeltaTime = m_regularFixedDeltaTime * bulletTimeScale;
+
+        m_musicManager.StartBulletTimeMix();
     }
 
     private void StopBulletTime()
@@ -153,6 +167,8 @@ public class GunController : MonoBehaviour
         m_isBulletTimeActive = false;
         Time.timeScale = m_regularTimeScale;
         Time.fixedDeltaTime = m_regularFixedDeltaTime;
+
+        m_musicManager.StopBulletTimeMix();
     }
 
     private void FireBullet()

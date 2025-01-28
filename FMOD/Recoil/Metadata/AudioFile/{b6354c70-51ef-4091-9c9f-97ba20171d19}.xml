@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b6354c70-51ef-4091-9c9f-97ba20171d19}">
+		<property name="assetPath">
+			<value>normal stage theme.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>62.950816326530614</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{efe5a05e-4bf1-417e-a5e3-5332bb7cfb9e}</destination>
+		</relationship>
+	</object>
+</objects>
