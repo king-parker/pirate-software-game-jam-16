@@ -5,16 +5,27 @@ using UnityEngine.UI;
 public class EndOfLevel : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
+    [SerializeField] private Button nextLevelButton;
     [SerializeField] private Button exitButton;
 
     private MusicManager m_musicManager;
+    private LevelManager m_levelManager;
 
     private void Start()
     {
-        restartButton.onClick.AddListener(() => RestartLevel());
-        exitButton.onClick.AddListener(() => ExitLevel());
-
         m_musicManager = GameObject.FindGameObjectWithTag(MusicManager.TAG).GetComponent<MusicManager>();
+        m_levelManager = GameObject.FindGameObjectWithTag(LevelManager.TAG).GetComponent<LevelManager>();
+
+        restartButton.onClick.AddListener(() => RestartLevel());
+        if (m_levelManager.IsLastLevel())
+        {
+            nextLevelButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            nextLevelButton.onClick.AddListener(() => NextLevel());
+        }
+        exitButton.onClick.AddListener(() => ExitLevel());
     }
 
     public void RestartLevel()
@@ -23,6 +34,11 @@ public class EndOfLevel : MonoBehaviour
 
         var currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
+    }
+
+    public void NextLevel()
+    {
+        m_levelManager.LoadNextLevel();
     }
 
     // TODO: This should probably not exist in a web game

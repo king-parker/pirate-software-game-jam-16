@@ -55,7 +55,6 @@ public class MusicManager : MonoBehaviour
         if (m_instance == null)
         {
             var prefab = Resources.Load<GameObject>("Prefabs/Music Manager");
-            Debug.Log("Trying to create music manager");
             if (prefab != null)
             {
                 Instantiate(prefab);
