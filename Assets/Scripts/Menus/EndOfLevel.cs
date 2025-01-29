@@ -6,6 +6,7 @@ public class EndOfLevel : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextLevelButton;
+    [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button levelSelectButton;
 
     private MusicManager m_musicManager;
@@ -25,6 +26,7 @@ public class EndOfLevel : MonoBehaviour
         {
             nextLevelButton.onClick.AddListener(() => NextLevel());
         }
+        mainMenuButton.onClick.AddListener(() => MainMenu());
         levelSelectButton.onClick.AddListener(() => LevelSelect());
     }
 
@@ -41,11 +43,21 @@ public class EndOfLevel : MonoBehaviour
         m_levelManager.LoadNextLevel();
     }
 
+    public void MainMenu()
+    {
+        MenuLoad(MenuNames.MainMenu);
+    }
+
     public void LevelSelect()
+    {
+        MenuLoad(MenuNames.LevelSelect);
+    }
+
+    private void MenuLoad(string menuName)
     {
         m_musicManager.StopStageClearMix();
         m_musicManager.SwitchToMenu();
 
-        SceneManager.LoadScene(MenuNames.LevelSelect);
+        SceneManager.LoadScene(menuName);
     }
 }

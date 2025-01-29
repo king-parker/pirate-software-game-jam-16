@@ -43,6 +43,11 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public GameLevel GetFirstLevel()
+    {
+        return levels[0];
+    }
+
     public bool IsLastLevel()
     {
         return m_currentLevelIndex + 1 >= levels.Length;
