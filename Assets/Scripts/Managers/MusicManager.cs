@@ -22,7 +22,6 @@ public class MusicManager : MonoBehaviour
             // If first instance, start music
             m_instance = this;
             DontDestroyOnLoad(gameObject);
-            InitializeMusic();
         }
         else
         {
@@ -31,7 +30,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    private void InitializeMusic()
+    public void InitializeMusic()
     {
         m_musicInstance = RuntimeManager.CreateInstance(musicName);
 
