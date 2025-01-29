@@ -13,8 +13,7 @@ public class LevelManager : MonoBehaviour
 
     public enum GameLevel
     {
-        FirstShots,
-        AStepUp
+        FirstShots, AStepUp,TheTwoStep, NarrowPass, UpToTheGap
     }
 
     private void Awake()

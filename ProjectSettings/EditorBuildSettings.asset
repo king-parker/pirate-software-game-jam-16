@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/1-Beginner/FirstShots.unity
     guid: d6988ec15fc90c548a4661a9feccecd8
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/TheTwoStep.unity
+    guid: a74d4d93d8448d549b97c5ea01b5e71e
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/NarrowPass.unity
+    guid: 86a622988751a7a4baae1a3729bd154c
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/UpToTheGap.unity
+    guid: 35b8c0c36d7be7a4faadfc09cc20ff85
   m_configObjects: {}
