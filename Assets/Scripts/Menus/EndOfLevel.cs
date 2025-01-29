@@ -48,19 +48,11 @@ public class EndOfLevel : MonoBehaviour
 
     public void MainMenu()
     {
-        MenuLoad(MenuNames.MainMenu);
+        MenuLoadUtility.LoadMainMenu(m_musicManager);
     }
 
     public void LevelSelect()
     {
-        MenuLoad(MenuNames.LevelSelect);
-    }
-
-    private void MenuLoad(string menuName)
-    {
-        m_musicManager.StopStageClearMix();
-        m_musicManager.SwitchToMenu();
-
-        SceneManager.LoadScene(menuName);
+        MenuLoadUtility.LoadLevelSelect(m_musicManager);
     }
 }
