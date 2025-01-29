@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GunPrototype.unity
-    guid: f096e24186716ee468a03507b2c2fc98
+    path: Assets/Scenes/Menus/LevelSelect.unity
+    guid: 7f41885790b89d54aaf3643c1ee37d63
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/AStepUp.unity
+    guid: 07da885b39956b5479a2ee3889de09e3
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/FirstShots.unity
+    guid: d6988ec15fc90c548a4661a9feccecd8
   m_configObjects: {}

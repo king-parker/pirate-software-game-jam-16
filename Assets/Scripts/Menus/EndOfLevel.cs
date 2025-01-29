@@ -6,7 +6,7 @@ public class EndOfLevel : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextLevelButton;
-    [SerializeField] private Button exitButton;
+    [SerializeField] private Button levelSelectButton;
 
     private MusicManager m_musicManager;
     private LevelManager m_levelManager;
@@ -25,7 +25,7 @@ public class EndOfLevel : MonoBehaviour
         {
             nextLevelButton.onClick.AddListener(() => NextLevel());
         }
-        exitButton.onClick.AddListener(() => ExitLevel());
+        levelSelectButton.onClick.AddListener(() => LevelSelect());
     }
 
     public void RestartLevel()
@@ -41,10 +41,11 @@ public class EndOfLevel : MonoBehaviour
         m_levelManager.LoadNextLevel();
     }
 
-    // TODO: This should probably not exist in a web game
-    // Other buttons to be added are Main Menu and Level Select
-    public void ExitLevel()
+    public void LevelSelect()
     {
-        Application.Quit();
+        m_musicManager.StopStageClearMix();
+        m_musicManager.SwitchToMenu();
+
+        SceneManager.LoadScene(MenuNames.LevelSelect);
     }
 }
