@@ -1014,6 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c311a082d2d0394780a00c5e28bdcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  messageText: {fileID: 7523942157622501238}
   restartButton: {fileID: 8632782070905858794}
   nextLevelButton: {fileID: 2272004970558209732}
   mainMenuButton: {fileID: 1375950983249750190}

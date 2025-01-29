@@ -22,6 +22,7 @@ public class MusicManager : MonoBehaviour
             // If first instance, start music
             m_instance = this;
             DontDestroyOnLoad(gameObject);
+            InitializeMusic();
         }
         else
         {
@@ -30,20 +31,22 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void InitializeMusic()
+    private void InitializeMusic()
     {
+        // Create the music instance
         m_musicInstance = RuntimeManager.CreateInstance(musicName);
 
-        if (isStage) { StageStart(); }
-
-        m_musicInstance.start();
+        // Preload the sample data to prevent audio delay
+        FMOD.Studio.EventDescription eventDesc;
+        RuntimeManager.StudioSystem.getEvent(musicName, out eventDesc);
+        eventDesc.loadSampleData();
     }
 
     private void OnDestroy()
     {
         if (m_musicInstance.isValid())
         {
-            m_musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            StopMusic();
             m_musicInstance.release();
         }
     }
@@ -59,6 +62,20 @@ public class MusicManager : MonoBehaviour
                 Instantiate(prefab);
             }
         }
+    }
+
+    [ContextMenu("Start Music")]
+    public void StartMusic()
+    {
+        if (isStage) { StageStart(); }
+
+        m_musicInstance.start();
+    }
+
+    [ContextMenu("Stop Music")]
+    public void StopMusic()
+    {
+        m_musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     [ContextMenu("Start Bullet Time Mix")]

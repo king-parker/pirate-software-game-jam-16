@@ -17,7 +17,7 @@ public class TitleScreen : MonoBehaviour
 
     private void StartGame()
     {
-        m_musicManager.InitializeMusic();
+        m_musicManager.StartMusic();
 
         SceneManager.LoadScene(MenuNames.MainMenu);
     }

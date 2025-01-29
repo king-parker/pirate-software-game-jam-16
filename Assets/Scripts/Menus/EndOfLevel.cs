@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EndOfLevel : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextLevelButton;
     [SerializeField] private Button mainMenuButton;
@@ -21,6 +23,7 @@ public class EndOfLevel : MonoBehaviour
         if (m_levelManager.IsLastLevel())
         {
             nextLevelButton.gameObject.SetActive(false);
+            messageText.text = "Final " + messageText.text;
         }
         else
         {
