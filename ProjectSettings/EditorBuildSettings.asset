@@ -29,4 +29,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/1-Beginner/UpToTheGap.unity
     guid: 35b8c0c36d7be7a4faadfc09cc20ff85
+  - enabled: 1
+    path: Assets/Scenes/Levels/2-Targets/OpenSaysMe.unity
+    guid: 3b72e18123a02f94684bb723e0c3e2ba
+  - enabled: 1
+    path: Assets/Scenes/Levels/2-Targets/AimHigh.unity
+    guid: 44d154d3bc4d2b04082faa9c08108436
+  - enabled: 1
+    path: Assets/Scenes/Levels/2-Targets/DoubleDoor.unity
+    guid: 78674d1650b2cf240b6c5d5f5e67ab09
+  - enabled: 1
+    path: Assets/Scenes/Levels/2-Targets/TopRow.unity
+    guid: dd2b0dcd67b2a0345814d6d5263cbc98
+  - enabled: 1
+    path: Assets/Scenes/Levels/2-Targets/InTheOtherRoom.unity
+    guid: 9c689eff40633284380d6df63179be80
   m_configObjects: {}
