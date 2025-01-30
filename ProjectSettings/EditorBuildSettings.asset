@@ -6,6 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GunPrototype.unity
-    guid: f096e24186716ee468a03507b2c2fc98
+    path: Assets/Scenes/Menus/TitleScreen.unity
+    guid: 9be1781df96423f49b2bb361207cb484
+  - enabled: 1
+    path: Assets/Scenes/Menus/MainMenu.unity
+    guid: 0f94fa12ca7434546842b2f62fe8dec3
+  - enabled: 1
+    path: Assets/Scenes/Menus/LevelSelect.unity
+    guid: 7f41885790b89d54aaf3643c1ee37d63
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/AStepUp.unity
+    guid: 07da885b39956b5479a2ee3889de09e3
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/FirstShots.unity
+    guid: d6988ec15fc90c548a4661a9feccecd8
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/TheTwoStep.unity
+    guid: a74d4d93d8448d549b97c5ea01b5e71e
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/NarrowPass.unity
+    guid: 86a622988751a7a4baae1a3729bd154c
+  - enabled: 1
+    path: Assets/Scenes/Levels/1-Beginner/UpToTheGap.unity
+    guid: 35b8c0c36d7be7a4faadfc09cc20ff85
   m_configObjects: {}

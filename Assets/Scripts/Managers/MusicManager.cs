@@ -22,7 +22,6 @@ public class MusicManager : MonoBehaviour
             // If first instance, start music
             m_instance = this;
             DontDestroyOnLoad(gameObject);
-            InitializeMusic();
         }
         else
         {
@@ -31,7 +30,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    private void InitializeMusic()
+    public void InitializeMusic()
     {
         m_musicInstance = RuntimeManager.CreateInstance(musicName);
 
@@ -55,7 +54,6 @@ public class MusicManager : MonoBehaviour
         if (m_instance == null)
         {
             var prefab = Resources.Load<GameObject>("Prefabs/Music Manager");
-            Debug.Log("Trying to create music manager");
             if (prefab != null)
             {
                 Instantiate(prefab);
