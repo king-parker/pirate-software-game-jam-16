@@ -135,7 +135,7 @@ MonoBehaviour:
   speed: 50
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 64
   rb: {fileID: 4083325188331110755}
 --- !u!50 &4083325188331110755
 Rigidbody2D:
