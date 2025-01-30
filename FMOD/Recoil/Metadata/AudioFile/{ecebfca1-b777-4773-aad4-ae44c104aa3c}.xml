@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ecebfca1-b777-4773-aad4-ae44c104aa3c}">
+		<property name="assetPath">
+			<value>Target-Break.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.29888888888888887</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{efe5a05e-4bf1-417e-a5e3-5332bb7cfb9e}</destination>
+		</relationship>
+	</object>
+</objects>

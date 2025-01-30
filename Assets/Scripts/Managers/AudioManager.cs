@@ -2,22 +2,36 @@ using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private string musicName = "event:/Soundtrack";
-    [SerializeField] private bool isStage = false;
-
     public static string TAG = "MusicManager";
 
-    private static MusicManager m_instance;
-    private FMOD.Studio.EventInstance m_musicInstance;
+    private static AudioManager m_instance;
 
+    // Event Instances
+    private FMOD.Studio.EventInstance m_musicInstance;
+    private FMOD.Studio.EventInstance m_gunshotInstance;
+    private FMOD.Studio.EventInstance m_gunCollisionInstance;
+    private FMOD.Studio.EventInstance m_targetBreakInstance;
+
+    // Prefix strings
+    private const string EVENT_PREFIX = "event:/";
     private const string BANK_PREFIX = "bank:/";
+
+    // For both the event and bank
     private const string SOUNDTRACK = "Soundtrack";
 
+    // All SFX strings
+    private const string SFX = "SFX";
+    private const string GUN_COLLISION = "Gun Collision";
+    private const string GUNSHOT = "Gunshot 2";
+    private const string TARGET_BREAK = "Target-Break";
+
+    // Parameter Strings
     private const string BULLET_TIME_PARAMETER = "Bullet Time Mix";
     private const string STAGE_CLEAR_PARAMETER = "Stage Clear Mix";
     private const string STAGE_START_PARAMETER = "Stage Start";
+    private const string GUN_POSITION = "Gun Position";
 
     private void Awake()
     {
@@ -36,10 +50,8 @@ public class MusicManager : MonoBehaviour
 
     public void InitializeMusic()
     {
-        m_musicInstance = RuntimeManager.CreateInstance(musicName);
-
-        if (isStage) { StageStart(); }
-
+        var eventName = EVENT_PREFIX + SOUNDTRACK;
+        m_musicInstance = RuntimeManager.CreateInstance(eventName);
         m_musicInstance.start();
     }
 
@@ -121,23 +133,28 @@ public class MusicManager : MonoBehaviour
 
     private void UpdateBulletTimeParameter(bool isBulletTimeOn)
     {
-        UpdateParameterHelper(BULLET_TIME_PARAMETER, isBulletTimeOn);
+        UpdateGlobalParameterHelper(BULLET_TIME_PARAMETER, FlagValue(isBulletTimeOn));
     }
 
     private void UpdateStageClearParameter(bool isStageCleared)
     {
-        UpdateParameterHelper(STAGE_CLEAR_PARAMETER, isStageCleared);
+        UpdateEventParameterHelper(m_musicInstance, STAGE_CLEAR_PARAMETER, isStageCleared);
     }
 
     private void UpdateStageStartParameter(bool isStageStart)
     {
-        UpdateParameterHelper(STAGE_START_PARAMETER, isStageStart);
+        UpdateEventParameterHelper(m_musicInstance, STAGE_START_PARAMETER, isStageStart);
     }
 
-    private void UpdateParameterHelper(string parameterName, bool flag)
-    {
-        var value = flag ? 1f : 0f;
+    private float FlagValue(bool flag) { return (flag ? 1f : 0f); }
 
-        m_musicInstance.setParameterByName(parameterName, value);
+    private void UpdateEventParameterHelper(EventInstance eventInstance, string parameterName, bool flag)
+    {
+        eventInstance.setParameterByName(parameterName, FlagValue(flag));
+    }
+
+    private void UpdateGlobalParameterHelper(string parameterName, float value)
+    {
+        RuntimeManager.StudioSystem.setParameterByName(parameterName, value);
     }
 }

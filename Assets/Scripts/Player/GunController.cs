@@ -26,7 +26,7 @@ public class GunController : MonoBehaviour
 
     private KeyCode m_shootKey = KeyCode.Space;
     private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
-    private MusicManager m_musicManager;
+    private AudioManager m_musicManager;
     private bool m_applyRecoil = false;
     private float m_regularFixedDeltaTime;
     private float m_regularTimeScale = 1f;
@@ -40,7 +40,7 @@ public class GunController : MonoBehaviour
         m_isBulletTimeActive = false;
         m_remainingBulletTime = bulletTimeDuration;
 
-        m_musicManager = GameObject.FindWithTag(MusicManager.TAG).GetComponent<MusicManager>();
+        m_musicManager = GameObject.FindWithTag(AudioManager.TAG).GetComponent<AudioManager>();
 
         // If this object is being created, we are starting a level and should not have menu music playing
         m_musicManager.StageStart();
