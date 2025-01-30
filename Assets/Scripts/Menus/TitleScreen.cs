@@ -13,6 +13,8 @@ public class TitleScreen : MonoBehaviour
         m_musicManager = GameObject.FindGameObjectWithTag(MusicManager.TAG).GetComponent<MusicManager>();
 
         startGameButton.onClick.AddListener(() => StartGame());
+
+        m_musicManager.LoadBanks();
     }
 
     private void StartGame()

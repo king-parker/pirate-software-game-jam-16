@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class MusicManager : MonoBehaviour
 
     private static MusicManager m_instance;
     private FMOD.Studio.EventInstance m_musicInstance;
+
+    private const string BANK_PREFIX = "bank:/";
+    private const string SOUNDTRACK = "Soundtrack";
 
     private const string BULLET_TIME_PARAMETER = "Bullet Time Mix";
     private const string STAGE_CLEAR_PARAMETER = "Stage Clear Mix";
@@ -37,6 +41,24 @@ public class MusicManager : MonoBehaviour
         if (isStage) { StageStart(); }
 
         m_musicInstance.start();
+    }
+
+    public System.Collections.IEnumerator LoadBanks()
+    {
+        // Load banks
+        RuntimeManager.LoadBank(SOUNDTRACK);
+
+        // Wait until the banks are fully loaded
+        while (!RuntimeManager.HasBankLoaded(SOUNDTRACK))
+        {
+            yield return null;
+        }
+
+        // Preload sample data
+        var bankName = BANK_PREFIX + SOUNDTRACK;
+        Bank soundtrackBank;
+        RuntimeManager.StudioSystem.getBank(bankName, out soundtrackBank);
+        soundtrackBank.loadSampleData();
     }
 
     private void OnDestroy()
