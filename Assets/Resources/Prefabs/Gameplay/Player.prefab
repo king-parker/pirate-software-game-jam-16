@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.28627452, g: 0.4117647, b: 0.5882353, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -238,8 +238,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.28627452, g: 0.4117647, b: 0.5882353, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -386,8 +386,14 @@ MonoBehaviour:
   bulletTimeScale: 0.5
   bulletTimeDuration: 5
   bulletTimeRechargeRate: 1
+  bulletTimeBarBackground: {fileID: 2751727325431252593}
+  bulletTimeBarFill: {fileID: 912178758540999424}
+  normalColor: {r: 0.3647059, g: 0.5254902, b: 0.7490196, a: 1}
+  halfColor: {r: 0.7490193, g: 0.37254903, b: 0.28627452, a: 1}
+  dangerColor: {r: 0.7490199, g: 0.21960784, b: 0.21960784, a: 1}
   bullet: {fileID: 5639460107491087771, guid: cc2040417bec9fb4796ad5a83b7d9373, type: 3}
   bulletSpawn: {fileID: 8606910018358046198}
+  animator: {fileID: 7393530130102585543}
 --- !u!50 &6348807885725446127
 Rigidbody2D:
   serializedVersion: 4
@@ -475,11 +481,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -667,6 +673,7 @@ GameObject:
   - component: {fileID: 7670719478443750991}
   - component: {fileID: 7945045087516229401}
   - component: {fileID: 7002953444346548777}
+  - component: {fileID: 7393530130102585543}
   m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
@@ -808,3 +815,24 @@ PolygonCollider2D:
       - {x: 0.24289963, y: 0.056856662}
       - {x: 0.24836841, y: 0.11637339}
   m_UseDelaunayMesh: 0
+--- !u!95 &7393530130102585543
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803437179684671174}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 420de1d162bdddc4ab0cf9e6689ca434, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AudioManager
   - LevelManager
+  - PauseScreen
   layers:
   - Default
   - TransparentFX

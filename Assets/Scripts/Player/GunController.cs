@@ -20,13 +20,25 @@ public class GunController : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float bulletTimeScale = 0.5f;
     [SerializeField] private float bulletTimeDuration = 5f;
     [SerializeField] private float bulletTimeRechargeRate = 1f;
+    [SerializeField] private Image bulletTimeBarBackground;
+    [SerializeField] private Image bulletTimeBarFill;
+    [SerializeField] private Color normalColor = new Color(73, 105, 150);
+    [SerializeField] private Color halfColor = new Color(203, 100, 77);
+    [SerializeField] private Color dangerColor = new Color(172, 50, 50);
 
     [Header("Bullet")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawn;
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
+    [Header("Pausing")]
+    [SerializeField] private PauseScreen pauseScreen;
+
     private KeyCode m_shootKey = KeyCode.Space;
     private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
+    private KeyCode m_pauseKey = KeyCode.Escape;
     private AudioManager m_audioManager;
     private bool m_applyRecoil = false;
     private float m_regularFixedDeltaTime;
@@ -34,6 +46,7 @@ public class GunController : MonoBehaviour
     private bool m_isBulletTimeActive = false;
     private float m_remainingBulletTime;
     private bool m_isInputEnabled = true;
+    private bool m_isPaused = false;
 
     private void Start()
     {
@@ -80,7 +93,16 @@ public class GunController : MonoBehaviour
     {
         if (!m_isInputEnabled)
         {
-            StopBulletTime();
+            if (!m_isPaused)
+            {
+                StopBulletTime();
+            }
+            return;
+        }
+
+        if (Input.GetKeyDown(m_pauseKey))
+        {
+            Pause();
             return;
         }
 
@@ -101,6 +123,8 @@ public class GunController : MonoBehaviour
 
     private void UpdateBulletTimeCharge()
     {
+        if (m_isPaused) { return; }
+
         if (!m_isBulletTimeActive)
         {
             if (m_remainingBulletTime < bulletTimeDuration)
@@ -120,9 +144,30 @@ public class GunController : MonoBehaviour
             // Unhide 
             bulletTimeSlider.gameObject.SetActive(true);
 
+            // Update remaining bullet time
             m_remainingBulletTime -= Time.unscaledDeltaTime;
             bulletTimeSlider.value = GetBulletTimePercentage();
         }
+
+        // Set bar collor on remaining duration
+        if (bulletTimeSlider.value > 0.5f)
+        {
+            SetBulletTimeBarColor(normalColor);
+        }
+        else if (bulletTimeSlider.value > 0.25f)
+        {
+            SetBulletTimeBarColor(halfColor);
+        }
+        else
+        {
+            SetBulletTimeBarColor(dangerColor);
+        }
+    }
+
+    private void SetBulletTimeBarColor(Color color)
+    {
+        bulletTimeBarBackground.color = color;
+        bulletTimeBarFill.color = color;
     }
 
     private void FireGun()
@@ -175,12 +220,45 @@ public class GunController : MonoBehaviour
     private void FireBullet()
     {
         m_audioManager.PlayGunshot(transform.position.x);
+        animator.SetTrigger("Fire");
         Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
     }
 
     private void CreateFlash()
     {
         Instantiate(shotFlashParticles, flashPoint.position, flashPoint.rotation);
+    }
+
+    private void Pause()
+    {
+        if (pauseScreen != null)
+        {
+            if (m_isBulletTimeActive) { StopBulletTime(); }
+
+            pauseScreen.gameObject.SetActive(true);
+
+            Time.timeScale = 0;
+            m_isPaused = true;
+
+            m_isInputEnabled = false;
+        }
+    }
+
+    public void Unpause()
+    {
+        Time.timeScale = m_regularTimeScale;
+        m_isPaused = false;
+
+        m_isInputEnabled = true;
+
+        if (Input.GetKey(m_bulletTimeKey))
+        {
+            StartBulletTime();
+        }
+        else
+        {
+            m_isBulletTimeActive = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -277,6 +277,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Bullet
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 165
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9477591b7a853f4b96774a7373e396c
+      internalID: -970867581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shell
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 165
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0f9d6dddcbb4943b85037d6bb54215
+      internalID: -628894177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -288,6 +330,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Bullet: -970867581
       Gun-Sheet_0: 859816495
       Gun-Sheet_flash_0: 613660195
       Gun-Sheet_flash_1: 1826562841
@@ -296,6 +339,7 @@ TextureImporter:
       Gun-Sheet_no-flash_0: 2134355052
       Gun-Sheet_no-flash_1: 1325818099
       Gun-Sheet_no-flash_2: -730937764
+      Shell: -628894177
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
