@@ -32,6 +32,8 @@ public class AudioManager : MonoBehaviour
     private const string STAGE_CLEAR_PARAMETER = "Stage Clear Mix";
     private const string STAGE_START_PARAMETER = "Stage Start";
     private const string GUN_POSITION = "Gun Position";
+    private const string SPEED = "speed";
+    private const string TARGET_POSITION = "Target Position";
 
     private void Awake()
     {
@@ -58,10 +60,13 @@ public class AudioManager : MonoBehaviour
     public System.Collections.IEnumerator LoadBanks()
     {
         // Load banks
+        RuntimeManager.LoadBank("Master");
+        RuntimeManager.LoadBank("Master.strings");
         RuntimeManager.LoadBank(SOUNDTRACK);
+        RuntimeManager.LoadBank(SFX);
 
         // Wait until the banks are fully loaded
-        while (!RuntimeManager.HasBankLoaded(SOUNDTRACK))
+        while (!RuntimeManager.HaveAllBanksLoaded)
         {
             yield return null;
         }
@@ -71,6 +76,9 @@ public class AudioManager : MonoBehaviour
         Bank soundtrackBank;
         RuntimeManager.StudioSystem.getBank(bankName, out soundtrackBank);
         soundtrackBank.loadSampleData();
+
+        LOADING_STATE loadingState;
+        var result = soundtrackBank.getSampleLoadingState(out loadingState);
     }
 
     private void OnDestroy()
@@ -100,6 +108,41 @@ public class AudioManager : MonoBehaviour
         m_levelWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
     }
 
+    /** One-Shot SFX **/
+    public void PlayGunshot(float position)
+    {
+        UpdateGlobalParameterHelper(GUN_POSITION, NormalizePosition(position));
+        PlaySound(EVENT_PREFIX + GUNSHOT);
+    }
+
+    /** One-Shot SFX **/
+    public void PlayGunCollision(float position, float speed)
+    {
+        speed = Mathf.Clamp(Mathf.Abs(speed), 0f, 20f);
+
+        UpdateGlobalParameterHelper(GUN_POSITION, NormalizePosition(position));
+        EventInstance soundInstance = RuntimeManager.CreateInstance(EVENT_PREFIX + GUN_COLLISION);
+        UpdateEventParameterHelper(soundInstance, SPEED, speed);
+        soundInstance.start();
+        soundInstance.release();
+    }
+
+    /** One-Shot SFX **/
+    public void PlayTargetBreak(float position)
+    {
+        EventInstance soundInstance = RuntimeManager.CreateInstance(EVENT_PREFIX + TARGET_BREAK);
+        UpdateEventParameterHelper(soundInstance, TARGET_POSITION, NormalizePosition(position));
+        soundInstance.start();
+        soundInstance.release();
+    }
+
+    /** Play One-Shot Helpers **/
+    private void PlaySound(string eventPath)
+    {
+        RuntimeManager.PlayOneShot(eventPath);
+    }
+
+    /** Bullet Time Mix **/
     [ContextMenu("Start Bullet Time Mix")]
     public void StartBulletTimeMix()
     {
@@ -112,6 +155,12 @@ public class AudioManager : MonoBehaviour
         UpdateBulletTimeParameter(false);
     }
 
+    private void UpdateBulletTimeParameter(bool isBulletTimeOn)
+    {
+        UpdateGlobalParameterHelper(BULLET_TIME_PARAMETER, FlagValue(isBulletTimeOn));
+    }
+
+    /** Stage  Mix **/
     [ContextMenu("Start Stage Clear Mix")]
     public void StartStageClearMix()
     {
@@ -124,6 +173,12 @@ public class AudioManager : MonoBehaviour
         UpdateStageClearParameter(false);
     }
 
+    private void UpdateStageClearParameter(bool isStageCleared)
+    {
+        UpdateEventParameterHelper(m_musicInstance, STAGE_CLEAR_PARAMETER, isStageCleared);
+    }
+
+    /** Stage Start **/
     [ContextMenu("Stage Start")]
     public void StageStart()
     {
@@ -136,26 +191,24 @@ public class AudioManager : MonoBehaviour
         UpdateStageStartParameter(false);
     }
 
-    private void UpdateBulletTimeParameter(bool isBulletTimeOn)
-    {
-        UpdateGlobalParameterHelper(BULLET_TIME_PARAMETER, FlagValue(isBulletTimeOn));
-    }
-
-    private void UpdateStageClearParameter(bool isStageCleared)
-    {
-        UpdateEventParameterHelper(m_musicInstance, STAGE_CLEAR_PARAMETER, isStageCleared);
-    }
-
     private void UpdateStageStartParameter(bool isStageStart)
     {
         UpdateEventParameterHelper(m_musicInstance, STAGE_START_PARAMETER, isStageStart);
     }
 
+    /** Parameter Helpers **/
     private float FlagValue(bool flag) { return (flag ? 1f : 0f); }
+
+    private float NormalizePosition(float position) {  return position / m_levelWidth; }
 
     private void UpdateEventParameterHelper(EventInstance eventInstance, string parameterName, bool flag)
     {
         eventInstance.setParameterByName(parameterName, FlagValue(flag));
+    }
+
+    private void UpdateEventParameterHelper(EventInstance eventInstance, string parameterName, float value)
+    {
+        eventInstance.setParameterByName(parameterName, value);
     }
 
     private void UpdateGlobalParameterHelper(string parameterName, float value)

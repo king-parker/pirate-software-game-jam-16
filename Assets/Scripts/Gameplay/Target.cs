@@ -9,6 +9,9 @@ public class Target : MonoBehaviour
     {
         if (CollisionUtility.IsInCollisionLayers(collision.gameObject.layer, bulletLayer))
         {
+            var audioManager = GameObject.FindGameObjectWithTag(AudioManager.TAG).GetComponent<AudioManager>();
+            audioManager.PlayTargetBreak(transform.position.x);
+
             // Destroy bullet
             Destroy(collision.gameObject);
 

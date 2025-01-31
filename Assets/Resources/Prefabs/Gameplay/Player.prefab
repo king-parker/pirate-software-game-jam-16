@@ -377,6 +377,9 @@ MonoBehaviour:
   fireTorque: 750
   minTorque: 200
   maxAngularVelocity: 750
+  collideLayerForSounds:
+    serializedVersion: 2
+    m_Bits: 64
   shotFlashParticles: {fileID: 8913119791601893449, guid: 12368c9d852b1454c8c1b0cf77bebf9a, type: 3}
   flashPoint: {fileID: 8188020859164523281}
   bulletTimeSlider: {fileID: 5289471389093245106}

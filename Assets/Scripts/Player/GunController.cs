@@ -9,6 +9,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private float fireTorque = 100f;
     [SerializeField] private float minTorque = 50f;
     [SerializeField] private float maxAngularVelocity = 500f;
+    [SerializeField] private LayerMask collideLayerForSounds;
 
     [Header("Shot Flash Particles")]
     [SerializeField] private ParticleSystem shotFlashParticles;
@@ -26,7 +27,7 @@ public class GunController : MonoBehaviour
 
     private KeyCode m_shootKey = KeyCode.Space;
     private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
-    private AudioManager m_musicManager;
+    private AudioManager m_audioManager;
     private bool m_applyRecoil = false;
     private float m_regularFixedDeltaTime;
     private float m_regularTimeScale = 1f;
@@ -40,12 +41,12 @@ public class GunController : MonoBehaviour
         m_isBulletTimeActive = false;
         m_remainingBulletTime = bulletTimeDuration;
 
-        m_musicManager = GameObject.FindWithTag(AudioManager.TAG).GetComponent<AudioManager>();
+        m_audioManager = GameObject.FindWithTag(AudioManager.TAG).GetComponent<AudioManager>();
 
         // If this object is being created, we are starting a level and should not have menu music playing
-        m_musicManager.StageStart();
-        m_musicManager.StopBulletTimeMix();
-        m_musicManager.StopStageClearMix();
+        m_audioManager.StageStart();
+        m_audioManager.StopBulletTimeMix();
+        m_audioManager.StopStageClearMix();
     }
 
     private void Update()
@@ -159,7 +160,7 @@ public class GunController : MonoBehaviour
         Time.timeScale = bulletTimeScale;
         Time.fixedDeltaTime = m_regularFixedDeltaTime * bulletTimeScale;
 
-        m_musicManager.StartBulletTimeMix();
+        m_audioManager.StartBulletTimeMix();
     }
 
     private void StopBulletTime()
@@ -168,16 +169,28 @@ public class GunController : MonoBehaviour
         Time.timeScale = m_regularTimeScale;
         Time.fixedDeltaTime = m_regularFixedDeltaTime;
 
-        m_musicManager.StopBulletTimeMix();
+        m_audioManager.StopBulletTimeMix();
     }
 
     private void FireBullet()
     {
+        m_audioManager.PlayGunshot(transform.position.x);
         Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
     }
 
     private void CreateFlash()
     {
         Instantiate(shotFlashParticles, flashPoint.position, flashPoint.rotation);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (CollisionUtility.IsInCollisionLayers(collision.gameObject.layer, collideLayerForSounds))
+        {
+            var velocity = rb.velocity.magnitude;
+            if (velocity > 5f) {
+                m_audioManager.PlayGunCollision(transform.position.x, velocity);
+            }
+        }
     }
 }
