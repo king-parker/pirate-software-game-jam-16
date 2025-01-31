@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     [SerializeField] private LayerMask bulletLayer;
     [SerializeField] private DoorSystem[] doors;
 
@@ -24,8 +25,13 @@ public class Target : MonoBehaviour
                 }
             }
 
-            // Break target
-            Destroy(this.gameObject);
+            // Play target break animation
+            animator.SetTrigger("Shot");
         }
+    }
+
+    private void DestroyAfterAnimation()
+    {
+        Destroy(gameObject);
     }
 }
