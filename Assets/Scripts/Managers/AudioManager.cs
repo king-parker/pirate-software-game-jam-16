@@ -1,18 +1,18 @@
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AudioManager : MonoBehaviour
 {
-    public static string TAG = "MusicManager";
+    public static string TAG = "AudioManager";
 
     private static AudioManager m_instance;
 
+    private float m_levelWidth = 0;
+
     // Event Instances
     private FMOD.Studio.EventInstance m_musicInstance;
-    private FMOD.Studio.EventInstance m_gunshotInstance;
-    private FMOD.Studio.EventInstance m_gunCollisionInstance;
-    private FMOD.Studio.EventInstance m_targetBreakInstance;
 
     // Prefix strings
     private const string EVENT_PREFIX = "event:/";
@@ -93,6 +93,11 @@ public class AudioManager : MonoBehaviour
                 Instantiate(prefab);
             }
         }
+    }
+
+    public void UpdateLevelWidth()
+    {
+        m_levelWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
     }
 
     [ContextMenu("Start Bullet Time Mix")]
