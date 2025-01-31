@@ -1928,7 +1928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6590917954321152164, guid: f8d2a0c82626bfd43be26c4027943da6, type: 3}
       propertyPath: m_text
-      value: Up to the Gap
+      value: 5. Up to the Gap
       objectReference: {fileID: 0}
     - target: {fileID: 7696597855890152347, guid: f8d2a0c82626bfd43be26c4027943da6, type: 3}
       propertyPath: gameLevel

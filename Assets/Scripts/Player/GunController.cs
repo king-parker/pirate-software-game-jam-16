@@ -33,8 +33,12 @@ public class GunController : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
+    [Header("Pausing")]
+    [SerializeField] private PauseScreen pauseScreen;
+
     private KeyCode m_shootKey = KeyCode.Space;
     private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
+    private KeyCode m_pauseKey = KeyCode.Escape;
     private AudioManager m_audioManager;
     private bool m_applyRecoil = false;
     private float m_regularFixedDeltaTime;
@@ -42,6 +46,7 @@ public class GunController : MonoBehaviour
     private bool m_isBulletTimeActive = false;
     private float m_remainingBulletTime;
     private bool m_isInputEnabled = true;
+    private bool m_isPaused = false;
 
     private void Start()
     {
@@ -88,7 +93,16 @@ public class GunController : MonoBehaviour
     {
         if (!m_isInputEnabled)
         {
-            StopBulletTime();
+            if (!m_isPaused)
+            {
+                StopBulletTime();
+            }
+            return;
+        }
+
+        if (Input.GetKeyDown(m_pauseKey))
+        {
+            Pause();
             return;
         }
 
@@ -109,6 +123,8 @@ public class GunController : MonoBehaviour
 
     private void UpdateBulletTimeCharge()
     {
+        if (m_isPaused) { return; }
+
         if (!m_isBulletTimeActive)
         {
             if (m_remainingBulletTime < bulletTimeDuration)
@@ -211,6 +227,38 @@ public class GunController : MonoBehaviour
     private void CreateFlash()
     {
         Instantiate(shotFlashParticles, flashPoint.position, flashPoint.rotation);
+    }
+
+    private void Pause()
+    {
+        if (pauseScreen != null)
+        {
+            if (m_isBulletTimeActive) { StopBulletTime(); }
+
+            pauseScreen.gameObject.SetActive(true);
+
+            Time.timeScale = 0;
+            m_isPaused = true;
+
+            m_isInputEnabled = false;
+        }
+    }
+
+    public void Unpause()
+    {
+        Time.timeScale = m_regularTimeScale;
+        m_isPaused = false;
+
+        m_isInputEnabled = true;
+
+        if (Input.GetKey(m_bulletTimeKey))
+        {
+            StartBulletTime();
+        }
+        else
+        {
+            m_isBulletTimeActive = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
