@@ -20,6 +20,11 @@ public class GunController : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float bulletTimeScale = 0.5f;
     [SerializeField] private float bulletTimeDuration = 5f;
     [SerializeField] private float bulletTimeRechargeRate = 1f;
+    [SerializeField] private Image bulletTimeBarBackground;
+    [SerializeField] private Image bulletTimeBarFill;
+    [SerializeField] private Color normalColor = new Color(73, 105, 150);
+    [SerializeField] private Color halfColor = new Color(203, 100, 77);
+    [SerializeField] private Color dangerColor = new Color(172, 50, 50);
 
     [Header("Bullet")]
     [SerializeField] private GameObject bullet;
@@ -123,9 +128,30 @@ public class GunController : MonoBehaviour
             // Unhide 
             bulletTimeSlider.gameObject.SetActive(true);
 
+            // Update remaining bullet time
             m_remainingBulletTime -= Time.unscaledDeltaTime;
             bulletTimeSlider.value = GetBulletTimePercentage();
         }
+
+        // Set bar collor on remaining duration
+        if (bulletTimeSlider.value > 0.5f)
+        {
+            SetBulletTimeBarColor(normalColor);
+        }
+        else if (bulletTimeSlider.value > 0.25f)
+        {
+            SetBulletTimeBarColor(halfColor);
+        }
+        else
+        {
+            SetBulletTimeBarColor(dangerColor);
+        }
+    }
+
+    private void SetBulletTimeBarColor(Color color)
+    {
+        bulletTimeBarBackground.color = color;
+        bulletTimeBarFill.color = color;
     }
 
     private void FireGun()
