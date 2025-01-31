@@ -44,4 +44,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/2-Targets/InTheOtherRoom.unity
     guid: 9c689eff40633284380d6df63179be80
+  - enabled: 1
+    path: Assets/Scenes/Levels/3-Advanced/PopUp.unity
+    guid: 800be28c9aeecc6448e5f914a8806ec7
+  - enabled: 1
+    path: Assets/Scenes/Levels/3-Advanced/ReachForTheSky.unity
+    guid: b744be35f905577409c8605bf5d97258
+  - enabled: 1
+    path: Assets/Scenes/Levels/3-Advanced/ThreeIsACrowd.unity
+    guid: afd7f1e58753de94da206c4ee8e11201
+  - enabled: 1
+    path: Assets/Scenes/Levels/3-Advanced/TheSpiral.unity
+    guid: 98efde809c0faa345935bdc6f2cc2d7e
+  - enabled: 1
+    path: Assets/Scenes/Levels/3-Advanced/CrissCross.unity
+    guid: a4f8e1d592f56964ca7bbe7ab58d929d
   m_configObjects: {}

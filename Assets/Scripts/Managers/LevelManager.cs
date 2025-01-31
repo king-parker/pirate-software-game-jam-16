@@ -16,7 +16,9 @@ public class LevelManager : MonoBehaviour
         // Beginner Levels
         FirstShots, AStepUp,TheTwoStep, NarrowPass, UpToTheGap,
         // Target Levels
-        OpenSaysMe, AimHigh, DoubleDoor, TopRow, InTheOtherRoom
+        OpenSaysMe, AimHigh, DoubleDoor, TopRow, InTheOtherRoom,
+        // Advanced Levels
+        PopUp, ReachForTheSky, ThreeIsACrowd, TheSpiral, CrissCross
     }
 
     private void Awake()
