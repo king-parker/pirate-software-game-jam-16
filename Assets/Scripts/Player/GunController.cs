@@ -25,6 +25,9 @@ public class GunController : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawn;
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
     private KeyCode m_shootKey = KeyCode.Space;
     private KeyCode m_bulletTimeKey = KeyCode.LeftShift;
     private AudioManager m_audioManager;
@@ -175,6 +178,7 @@ public class GunController : MonoBehaviour
     private void FireBullet()
     {
         m_audioManager.PlayGunshot(transform.position.x);
+        animator.SetTrigger("Fire");
         Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
     }
 
