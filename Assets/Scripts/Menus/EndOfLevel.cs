@@ -11,12 +11,12 @@ public class EndOfLevel : MonoBehaviour
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button levelSelectButton;
 
-    private MusicManager m_musicManager;
+    private AudioManager m_musicManager;
     private LevelManager m_levelManager;
 
     private void Start()
     {
-        m_musicManager = GameObject.FindGameObjectWithTag(MusicManager.TAG).GetComponent<MusicManager>();
+        m_musicManager = GameObject.FindGameObjectWithTag(AudioManager.TAG).GetComponent<AudioManager>();
         m_levelManager = GameObject.FindGameObjectWithTag(LevelManager.TAG).GetComponent<LevelManager>();
 
         restartButton.onClick.AddListener(() => RestartLevel());

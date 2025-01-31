@@ -7,11 +7,11 @@ public class Goal : MonoBehaviour
     [SerializeField] private GunController player;
     [SerializeField] private GameObject endOfLevelScreen;
 
-    private MusicManager m_musicManager;
+    private AudioManager m_musicManager;
 
     private void Start()
     {
-        m_musicManager = GameObject.FindGameObjectWithTag(MusicManager.TAG).GetComponent<MusicManager>();
+        m_musicManager = GameObject.FindGameObjectWithTag(AudioManager.TAG).GetComponent<AudioManager>();
     }
 
     public void GoalReached()

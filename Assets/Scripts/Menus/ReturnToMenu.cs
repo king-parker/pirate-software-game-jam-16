@@ -5,7 +5,7 @@ public class ReturnToMenu : MonoBehaviour
 {
     private void Start()
     {
-        var musicManager = GameObject.FindGameObjectWithTag(MusicManager.TAG).GetComponent<MusicManager>();
+        var musicManager = GameObject.FindGameObjectWithTag(AudioManager.TAG).GetComponent<AudioManager>();
 
         GetComponent<Button>().onClick.AddListener(() => MenuLoadUtility.LoadMainMenu(musicManager));
     }

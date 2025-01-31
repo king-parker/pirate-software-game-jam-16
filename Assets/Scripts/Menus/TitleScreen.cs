@@ -6,15 +6,15 @@ public class TitleScreen : MonoBehaviour
 {
     [SerializeField] private Button startGameButton;
 
-    private MusicManager m_musicManager;
+    private AudioManager m_musicManager;
 
     private void Start()
     {
-        m_musicManager = GameObject.FindGameObjectWithTag(MusicManager.TAG).GetComponent<MusicManager>();
+        m_musicManager = GameObject.FindGameObjectWithTag(AudioManager.TAG).GetComponent<AudioManager>();
 
         startGameButton.onClick.AddListener(() => StartGame());
 
-        m_musicManager.LoadBanks();
+        StartCoroutine(m_musicManager.LoadBanks());
     }
 
     private void StartGame()
