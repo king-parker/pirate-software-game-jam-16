@@ -14,7 +14,7 @@ public class TitleScreen : MonoBehaviour
 
         startGameButton.onClick.AddListener(() => StartGame());
 
-        m_musicManager.LoadBanks();
+        StartCoroutine(m_musicManager.LoadBanks());
     }
 
     private void StartGame()

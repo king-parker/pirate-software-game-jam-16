@@ -73,12 +73,20 @@ public class AudioManager : MonoBehaviour
 
         // Preload sample data
         var bankName = BANK_PREFIX + SOUNDTRACK;
-        Bank soundtrackBank;
-        RuntimeManager.StudioSystem.getBank(bankName, out soundtrackBank);
+        RuntimeManager.StudioSystem.getBank(bankName, out Bank soundtrackBank);
         soundtrackBank.loadSampleData();
+        bankName = BANK_PREFIX + SFX;
+        RuntimeManager.StudioSystem.getBank(bankName, out Bank sfxBank);
+        sfxBank.loadSampleData();
 
-        LOADING_STATE loadingState;
-        var result = soundtrackBank.getSampleLoadingState(out loadingState);
+        soundtrackBank.getSampleLoadingState(out LOADING_STATE soundtrackState);
+        sfxBank.getSampleLoadingState(out LOADING_STATE sfxLoadingState);
+        while (soundtrackState != LOADING_STATE.LOADED || sfxLoadingState != LOADING_STATE.LOADED)
+        {
+            soundtrackBank.getSampleLoadingState(out soundtrackState);
+            sfxBank.getSampleLoadingState(out sfxLoadingState);
+            yield return null;
+        }
     }
 
     private void OnDestroy()
